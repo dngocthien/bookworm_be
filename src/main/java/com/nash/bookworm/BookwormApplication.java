@@ -3,6 +3,7 @@ package com.nash.bookworm;
 import com.nash.bookworm.entities.Author;
 import com.nash.bookworm.entities.Book;
 import com.nash.bookworm.entities.Category;
+import com.nash.bookworm.entities.Discount;
 import com.nash.bookworm.services.AuthorService;
 import com.nash.bookworm.services.BookService;
 import com.nash.bookworm.services.CategoryService;
@@ -67,7 +68,8 @@ public class BookwormApplication {
 //            bookService.saveBook(new Book(null, categoryService.getCategoryByName("Mystery"), authorService.getAuthorByName("Carolyn Keene"), "The bungalow mystery", "While trying to help a friend out of a difficulty, teenage detective Nancy Drew has a perilous experience in and around a deserted bungalow.", 6, "https://covers.openlibrary.org/b/olid/OL23267230M-M.jpg"));
 //            bookService.saveBook(new Book(null, categoryService.getCategoryByName("Mystery"), authorService.getAuthorByName("Carolyn Keene"), "The secret of shadow ranch", "This cool paperback blank journal features one of the most memorable cover images from the classic Nancy Drew Mystery Stories series.", 12, "https://covers.openlibrary.org/b/olid/OL20939113M-M.jpg"));
 //
-//            bookService.saveBook(new Book(null, categoryService.getCategoryByName("Mystery"), authorService.getAuthorByName("mmmm"), "title", "", 7, ""));
+
+//            bookService.addDiscountToBook(1, new Discount(null, 1));
         };
     }
 }

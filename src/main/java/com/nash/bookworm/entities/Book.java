@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "book")
@@ -22,8 +24,13 @@ public class Book {
     @JoinColumn(name = "author_id")
     private Author author;
     private String bookTitle;
+    @Lob
     private String bookSummary;
     private int bookPrice;
     private String bookCoverPhoto;
 
+//    @OneToMany(fetch = FetchType.EAGER)
+//    private List<Discount> discounts = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Review> reviews = new ArrayList<>();
 }
