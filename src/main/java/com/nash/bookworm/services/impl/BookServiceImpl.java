@@ -2,6 +2,7 @@ package com.nash.bookworm.services.impl;
 
 import com.nash.bookworm.converter.BookConverter;
 import com.nash.bookworm.dto.BookDto;
+import com.nash.bookworm.dto.BookPage;
 import com.nash.bookworm.entities.Book;
 import com.nash.bookworm.entities.Category;
 import com.nash.bookworm.entities.Discount;
@@ -10,6 +11,7 @@ import com.nash.bookworm.repo.CategoryRepo;
 import com.nash.bookworm.repo.DiscountRepo;
 import com.nash.bookworm.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -28,21 +30,25 @@ public class BookServiceImpl implements BookService {
     private BookConverter bookConverter;
 
     @Override
-    public Book saveBook(BookDto dto) {
+    public void saveBook(BookDto dto) {
         Book book = bookConverter.toBook(dto);
-        return bookRepo.save(book);
+        bookRepo.save(book);
     }
 
     @Override
-    public Book getBookById(Long id) {
-        return bookRepo.findById(id).orElse(null);
+    public BookDto getBookById(Long id) {
+        Book book = bookRepo.findById(id).orElse(null);
+        if (book != null) {
+            return bookConverter.toDTO(book);
+        }
+        return null;
     }
 
     @Override
     public List<BookDto> getAllBooks(Pageable pageable) {
         List<Book> books = bookRepo.findAll(pageable).getContent();
         List<BookDto> results = new ArrayList<>();
-        for(Book book: books){
+        for (Book book : books) {
             BookDto dto = bookConverter.toDTO(book);
             results.add(dto);
         }
@@ -53,7 +59,17 @@ public class BookServiceImpl implements BookService {
     public List<BookDto> getBooksByCategory(Long id, Pageable pageable) {
         List<Book> books = bookRepo.findByCategoryId(id, pageable);
         List<BookDto> results = new ArrayList<>();
-        for(Book book: books){
+        for (Book book : books) {
+            BookDto dto = bookConverter.toDTO(book);
+            results.add(dto);
+        }
+        return results;
+    }
+
+    public List<BookDto> getBooksByCategory(Long id) {
+        List<Book> books = bookRepo.findByCategoryId(id);
+        List<BookDto> results = new ArrayList<>();
+        for (Book book : books) {
             BookDto dto = bookConverter.toDTO(book);
             results.add(dto);
         }
@@ -64,7 +80,18 @@ public class BookServiceImpl implements BookService {
     public List<BookDto> getBooksByAuthor(Long id, Pageable pageable) {
         List<Book> books = bookRepo.findByAuthorId(id, pageable);
         List<BookDto> results = new ArrayList<>();
-        for(Book book: books){
+        for (Book book : books) {
+            BookDto dto = bookConverter.toDTO(book);
+            results.add(dto);
+        }
+        return results;
+
+    }
+
+    public List<BookDto> getBooksByAuthor(Long id) {
+        List<Book> books = bookRepo.findByAuthorId(id);
+        List<BookDto> results = new ArrayList<>();
+        for (Book book : books) {
             BookDto dto = bookConverter.toDTO(book);
             results.add(dto);
         }
@@ -79,6 +106,35 @@ public class BookServiceImpl implements BookService {
     @Override
     public void saveDiscount(Discount discount) {
         discountRepo.save(discount);
+    }
+
+    @Override
+    public BookPage getBookPage(int page, int show, long filter, int type) {
+        BookPage bookPage = new BookPage();
+        bookPage.setPage(page);
+        Pageable pageable = PageRequest.of(page, show);
+        List<BookDto> bookDtos;
+        switch (type) {
+            case 1:
+                bookDtos = getBooksByCategory(filter, pageable);
+                bookPage.setTotalPage((int) Math.ceil(bookDtos.size() / show));
+                bookPage.setTotalBook(getBooksByCategory(filter).size());
+                bookPage.setBooks(bookDtos);
+                break;
+            case 2:
+                bookDtos = getBooksByAuthor(filter, pageable);
+                bookPage.setTotalPage((int) Math.ceil(bookDtos.size() / show));
+                bookPage.setTotalBook(getBooksByAuthor(filter).size());
+                bookPage.setBooks(bookDtos);
+                break;
+            default:
+                bookDtos = getAllBooks(pageable);
+                bookPage.setTotalPage((int) Math.ceil(bookDtos.size() / show));
+                bookPage.setTotalBook(bookDtos.size());
+                bookPage.setBooks(bookDtos);
+                break;
+        }
+        return bookPage;
     }
 
 //    @Override

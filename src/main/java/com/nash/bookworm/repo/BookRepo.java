@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface BookRepo extends JpaRepository<Book, Long> {
     List<Book> findByCategoryId(Long id, Pageable pageable);
+    List<Book> findByCategoryId(Long id);
 
     List<Book> findByAuthorId(Long id, Pageable pageable);
+    List<Book> findByAuthorId(Long id);
 }

@@ -28,7 +28,7 @@ public class BookwormApplication {
 //            categoryService.saveCategory(new Category(null, "Mystery", "Mystery novels, also called detective fiction, follow a detective solving a case from start to finish"));
 //            categoryService.saveCategory(new Category(null, "Thriller", "Thriller novels are dark, mysterious, and suspenseful plot-driven stories."));
 //            categoryService.saveCategory(new Category(null, "Horror", "Horror novels are meant to scare, startle, shock, and even repulse readers."));
-//            categoryService.saveCategory(new Category(null, "Historical.", "Historical fiction novels take place in the past."));
+//            categoryService.saveCategory(new Category(null, "Historical", "Historical fiction novels take place in the past."));
 //            categoryService.saveCategory(new Category(null, "Romance", "Romantic fiction centers around love stories between two people."));
 //            categoryService.saveCategory(new Category(null, "Western", "Western novels tell the stories of cowboys, settlers, and outlaws exploring the western frontier and taming the American Old West."));
 //            categoryService.saveCategory(new Category(null, "Speculative Fiction", "Speculative fiction is a supergenre that encompasses a number of different types of fiction, from science fiction to fantasy to dystopian."));
