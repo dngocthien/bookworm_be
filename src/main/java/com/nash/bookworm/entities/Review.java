@@ -18,5 +18,5 @@ public class Review {
     private String reviewTitle;
     private String reviewDetails;
     private Date reviewDate;
-    private int ratingStart;
+    private int ratingStar;
 }

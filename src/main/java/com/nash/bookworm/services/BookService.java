@@ -2,6 +2,7 @@ package com.nash.bookworm.services;
 
 import com.nash.bookworm.dto.BookDto;
 import com.nash.bookworm.dto.BookPage;
+import com.nash.bookworm.dto.ReviewDto;
 import com.nash.bookworm.entities.Discount;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,9 @@ public interface BookService {
     List<BookDto> getAllBooks(Pageable pageable);
     List<BookDto> getBooksByCategory(Long id, Pageable pageable);
     List<BookDto> getBooksByAuthor(Long id, Pageable pageable);
-    int totalBook();
 
     void saveDiscount(Discount discount);
+//    void saveReview(ReviewDto dto);
 
     BookPage getBookPage(int page, int show, long filter, int type);
 }

@@ -1,14 +1,16 @@
 package com.nash.bookworm.services.impl;
 
 import com.nash.bookworm.converter.BookConverter;
+import com.nash.bookworm.converter.ReviewConverter;
 import com.nash.bookworm.dto.BookDto;
 import com.nash.bookworm.dto.BookPage;
 import com.nash.bookworm.entities.Book;
-import com.nash.bookworm.entities.Category;
 import com.nash.bookworm.entities.Discount;
+import com.nash.bookworm.entities.Review;
 import com.nash.bookworm.repo.BookRepo;
 import com.nash.bookworm.repo.CategoryRepo;
 import com.nash.bookworm.repo.DiscountRepo;
+import com.nash.bookworm.repo.ReviewRepo;
 import com.nash.bookworm.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -27,7 +29,11 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private CategoryRepo categoryRepo;
     @Autowired
+    private ReviewRepo reviewRepo;
+    @Autowired
     private BookConverter bookConverter;
+    @Autowired
+    private ReviewConverter reviewConverter;
 
     @Override
     public void saveBook(BookDto dto) {
@@ -39,7 +45,8 @@ public class BookServiceImpl implements BookService {
     public BookDto getBookById(Long id) {
         Book book = bookRepo.findById(id).orElse(null);
         if (book != null) {
-            return bookConverter.toDTO(book);
+            BookDto dto = bookConverter.toDTO(book);
+            return dto;
         }
         return null;
     }
@@ -99,14 +106,19 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public int totalBook() {
-        return (int) bookRepo.count();
-    }
-
-    @Override
     public void saveDiscount(Discount discount) {
         discountRepo.save(discount);
     }
+
+//    @Transactional
+//    @Override
+//    public void saveReview(ReviewDto dto) {
+//        Book book = bookRepo.findById(dto.getBookId()).orElse(null);
+//        if(book!=null){
+//            book.getReviews().add(reviewConverter.toReview(dto));
+//            bookRepo.save(book);
+//        }
+//    }
 
     @Override
     public BookPage getBookPage(int page, int show, long filter, int type) {
@@ -117,23 +129,19 @@ public class BookServiceImpl implements BookService {
         switch (type) {
             case 1:
                 bookDtos = getBooksByCategory(filter, pageable);
-                bookPage.setTotalPage((int) Math.ceil(bookDtos.size() / show));
                 bookPage.setTotalBook(getBooksByCategory(filter).size());
-                bookPage.setBooks(bookDtos);
                 break;
             case 2:
                 bookDtos = getBooksByAuthor(filter, pageable);
-                bookPage.setTotalPage((int) Math.ceil(bookDtos.size() / show));
                 bookPage.setTotalBook(getBooksByAuthor(filter).size());
-                bookPage.setBooks(bookDtos);
                 break;
             default:
                 bookDtos = getAllBooks(pageable);
-                bookPage.setTotalPage((int) Math.ceil(bookDtos.size() / show));
-                bookPage.setTotalBook(bookDtos.size());
-                bookPage.setBooks(bookDtos);
+                bookPage.setTotalBook(bookRepo.findAll().size());
                 break;
         }
+        bookPage.setTotalPage((int) Math.ceil(bookDtos.size() / show));
+        bookPage.setBooks(bookDtos);
         return bookPage;
     }
 
