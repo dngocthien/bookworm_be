@@ -26,7 +26,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewPage getReviewPage(long id, int page, int show) {
+    public ReviewPage getReviewPage(long id, int page, int show, int star, String sort) {
         ReviewPage reviewPage = new ReviewPage();
         reviewPage.setPage(page);
         reviewPage.setTotalPage((int) Math.ceil(repo.findByBookId(id).size()/show));
@@ -49,7 +49,12 @@ public class ReviewServiceImpl implements ReviewService {
         }
 
         Pageable pageable = PageRequest.of(page, show);
-        List<Review> reviews = repo.findByBookId(id, pageable);
+        List<Review> reviews;
+        if(star==0){
+            reviews = repo.findByBookId(id, sort, pageable);
+        }else {
+            reviews = repo.findByBookIdAndStar(id, star, sort, pageable);
+        }
         reviewPage.getReviews().addAll(converter.toDtoList(reviews));
         return reviewPage;
     }

@@ -1,18 +1,19 @@
 package com.nash.bookworm.dto;
 
-import com.nash.bookworm.entities.Book;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReviewDto {
     private Long id;
     private Long bookId;
     private String reviewTitle;
     private String reviewDetails;
     private Date reviewDate;
-    private int ratingStart;
+    private int ratingStar;
 }

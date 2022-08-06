@@ -22,7 +22,7 @@ public class ReviewConverter {
         dto.setReviewTitle(review.getReviewTitle());
         dto.setReviewDetails(review.getReviewDetails());
         dto.setReviewDate(review.getReviewDate());
-        dto.setRatingStart(review.getRatingStar());
+        dto.setRatingStar(review.getRatingStar());
         return dto;
     }
 
@@ -33,7 +33,7 @@ public class ReviewConverter {
         review.setReviewTitle(dto.getReviewTitle());
         review.setReviewDetails(dto.getReviewDetails());
         review.setReviewDate(dto.getReviewDate());
-        review.setRatingStar(dto.getRatingStart());
+        review.setRatingStar(dto.getRatingStar());
         return review;
     }
 

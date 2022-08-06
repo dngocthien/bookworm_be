@@ -18,7 +18,6 @@ public interface BookService {
     List<BookDto> getBooksByAuthor(Long id, Pageable pageable);
 
     void saveDiscount(Discount discount);
-//    void saveReview(ReviewDto dto);
 
     BookPage getBookPage(int page, int show, long filter, int type);
 }

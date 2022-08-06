@@ -10,5 +10,5 @@ import java.util.List;
 @Service
 public interface ReviewService {
     void saveReview(ReviewDto dto);
-    ReviewPage getReviewPage(long id, int page, int show);
+    ReviewPage getReviewPage(long id, int page, int show, int star, String sort);
 }
