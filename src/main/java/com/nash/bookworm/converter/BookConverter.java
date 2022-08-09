@@ -4,6 +4,7 @@ import com.nash.bookworm.dto.BookDto;
 import com.nash.bookworm.dto.ReviewDto;
 import com.nash.bookworm.entities.Book;
 import com.nash.bookworm.entities.Review;
+import com.nash.bookworm.services.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,8 @@ import java.util.List;
 public class BookConverter {
     @Autowired
     private ReviewConverter reviewConverter;
+    @Autowired
+    private DiscountService discountService;
     public BookDto toDTO(Book book){
         BookDto dto = new BookDto();
         dto.setId(book.getId());
@@ -23,6 +26,7 @@ public class BookConverter {
         dto.setBookSummary(book.getBookSummary());
         dto.setBookPrice(book.getBookPrice());
         dto.setBookCoverPhoto(book.getBookCoverPhoto());
+        dto.setDiscount(discountService.getDiscountByBookId(book.getId()));
 
         List<Review> reviews = book.getReviews();
         List<ReviewDto> reviewDtos = new ArrayList<>();

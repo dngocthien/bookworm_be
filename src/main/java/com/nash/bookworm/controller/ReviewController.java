@@ -28,7 +28,7 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews")
-    public ResponseEntity<ReviewPage> getReviewByBookId(@RequestParam long id, @RequestParam int page, @RequestParam int show, @RequestParam int star, @RequestParam String sort){
+    public ResponseEntity<ReviewPage> getReviewByBookId(@RequestParam long id, @RequestParam int page, @RequestParam int show, @RequestParam int star, @RequestParam int sort){
         return ResponseEntity.ok().body(service.getReviewPage(id, page, show, star, sort));
     }
 }

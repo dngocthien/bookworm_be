@@ -16,6 +16,6 @@ public class BookDto {
     private String bookSummary;
     private int bookPrice;
     private String bookCoverPhoto;
-//    private List<Discount> discounts = new ArrayList<>();
+    private DiscountDto discount;
     private List<ReviewDto> reviews = new ArrayList<>();
 }

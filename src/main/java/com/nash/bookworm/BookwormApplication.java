@@ -1,14 +1,12 @@
 package com.nash.bookworm;
 
+import com.nash.bookworm.dto.DiscountDto;
 import com.nash.bookworm.dto.ReviewDto;
 import com.nash.bookworm.entities.Author;
 import com.nash.bookworm.entities.Book;
 import com.nash.bookworm.entities.Category;
 import com.nash.bookworm.entities.Discount;
-import com.nash.bookworm.services.AuthorService;
-import com.nash.bookworm.services.BookService;
-import com.nash.bookworm.services.CategoryService;
-import com.nash.bookworm.services.ReviewService;
+import com.nash.bookworm.services.*;
 import com.nash.bookworm.services.impl.CategoryServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,7 +23,7 @@ public class BookwormApplication {
     }
 
     @Bean
-    CommandLineRunner run(BookService bookService, CategoryService categoryService, AuthorService authorService, ReviewService reviewService) {
+    CommandLineRunner run(BookService bookService, CategoryService categoryService, AuthorService authorService, ReviewService reviewService, DiscountService discountService) {
         return args -> {
 //            Category
 //            categoryService.saveCategory(new Category(null, "Literary Fiction", "Literary fiction novels are considered works with artistic value and literary merit"));
@@ -80,7 +78,11 @@ public class BookwormApplication {
 //            reviewService.saveReview(new ReviewDto(null, 1L, "Normal", "Normal", new Date(2022, 4, 12), 3));
 //            reviewService.saveReview(new ReviewDto(null, 1L, "Recommend!", "Not very interesting, but it is ok.", new Date(2022, 6, 12), 4));
 
-
+//            Discount
+//            discountService.saveDiscount(new DiscountDto(null, 1L, new Date(2022, 4, 12), new Date(2023, 1, 12), 6));
+//            discountService.saveDiscount(new DiscountDto(null, 3L, new Date(2022, 4, 12), new Date(2023, 1, 12), 30));
+//            discountService.saveDiscount(new DiscountDto(null, 8L, new Date(2022, 4, 12), new Date(2023, 1, 12), 10));
+//            discountService.saveDiscount(new DiscountDto(null, 10L, new Date(2022, 4, 13), new Date(2023, 1, 12), 11));
         };
     }
 }

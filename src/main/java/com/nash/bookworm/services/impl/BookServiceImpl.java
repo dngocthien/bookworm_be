@@ -15,6 +15,8 @@ import com.nash.bookworm.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -111,11 +113,19 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookPage getBookPage(int page, int show, long filter, int type) {
+    public BookPage getBookPage(int page, int show, long filter, int type, int sort) {
         BookPage bookPage = new BookPage();
         bookPage.setPage(page);
-        Pageable pageable = PageRequest.of(page, show);
         List<BookDto> bookDtos;
+
+        List<Order> orders = new ArrayList<Order>();
+        if (sort == 0) {
+            Order byOnSale = new Order(Sort.Direction.DESC, "discount.discountPrice");
+            orders.add(byOnSale);
+            Order byPrice = new Order(Sort.Direction.ASC, "bookPrice");
+            orders.add(byPrice);
+        }
+        Pageable pageable = PageRequest.of(page, show, Sort.by(orders));
         switch (type) {
             case 1:
                 bookDtos = getBooksByCategory(filter, pageable);

@@ -15,7 +15,6 @@ public class ReviewConverter {
     @Autowired
     private BookRepo repo;
     public ReviewDto toDto(Review review) {
-        System.out.println(review.getReviewTitle());
         ReviewDto dto = new ReviewDto();
         dto.setId(review.getId());
         dto.setBookId(review.getBook().getId());

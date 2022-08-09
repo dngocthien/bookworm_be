@@ -28,9 +28,9 @@ public class Book {
     private String bookSummary;
     private int bookPrice;
     private String bookCoverPhoto;
-
-//    @OneToMany(fetch = FetchType.EAGER)
-//    private List<Discount> discounts = new ArrayList<>();
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "discount_id")
+    private Discount discount;
     @OneToMany(fetch = FetchType.EAGER)
     private List<Review> reviews = new ArrayList<>();
 }

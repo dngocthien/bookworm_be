@@ -18,8 +18,8 @@ public class BookController {
     private BookService service;
 
     @GetMapping("/books")
-    public ResponseEntity<BookPage> getBooksPage(@RequestParam("page") int page, @RequestParam("show") int show, @RequestParam long filter, @RequestParam int type) {
-        return ResponseEntity.ok().body(service.getBookPage(page, show, filter, type));
+    public ResponseEntity<BookPage> getBooksPage(@RequestParam("page") int page, @RequestParam("show") int show, @RequestParam("filter") long filter, @RequestParam("type") int type, @RequestParam("sort") int sort) {
+        return ResponseEntity.ok().body(service.getBookPage(page, show, filter, type, sort));
     }
 
     @GetMapping("/books/id/{id}")

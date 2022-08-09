@@ -10,7 +10,7 @@ public class ReviewPage {
     private int page;
     private int totalPage;
     private int totalReview;
-    private double star;
+    private float star;
     private int one;
     private int two;
     private int three;

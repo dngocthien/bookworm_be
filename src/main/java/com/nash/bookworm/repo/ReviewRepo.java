@@ -14,11 +14,11 @@ import java.util.List;
 public interface ReviewRepo extends JpaRepository<Review, Long> {
     List<Review> findByBookId(Long id);
 
-    @Query("SELECT r FROM Review r WHERE r.book.id = ?1 ORDER BY r.reviewDate DESC")
-    List<Review> findByBookId( Long id, String sort, Pageable pageable);
+//    @Query("SELECT r FROM Review r WHERE r.book.id = ?1")
+    List<Review> findByBookId( Long id, Pageable pageable);
 
-    @Query("SELECT r FROM Review r WHERE r.book.id = ?1 AND r.ratingStar = ?2 ORDER BY r.reviewDate DESC")
-    List<Review> findByBookIdAndStar(Long id, int star, String sort, Pageable pageable);
+    @Query("SELECT r FROM Review r WHERE r.book.id = ?1 AND r.ratingStar = ?2")
+    List<Review> findByBookIdAndStar(Long id, int star, Pageable pageable);
 
     @Query("SELECT COUNT(r.id) FROM Review r WHERE r.book.id = ?1 AND r.ratingStar = ?2")
     int countByBookIdAndStar(long id, int star);

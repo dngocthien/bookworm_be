@@ -9,6 +9,7 @@ import com.nash.bookworm.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,10 +27,10 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewPage getReviewPage(long id, int page, int show, int star, String sort) {
+    public ReviewPage getReviewPage(long id, int page, int show, int star, int sort) {
         ReviewPage reviewPage = new ReviewPage();
         reviewPage.setPage(page);
-        reviewPage.setTotalPage((int) Math.ceil(repo.findByBookId(id).size()/show));
+        reviewPage.setTotalPage((int) Math.ceil(repo.findByBookId(id).size() / show));
         reviewPage.setTotalReview(repo.findByBookId(id).size());
 
         int a = repo.countByBookIdAndStar(id, 1);
@@ -42,18 +43,23 @@ public class ReviewServiceImpl implements ReviewService {
         reviewPage.setThree(c);
         reviewPage.setFour(d);
         reviewPage.setFive(e);
-        if(a+b+c+d+e>0) {
-            reviewPage.setStar((1 * a + 2 * b + 3 * c + 4 * d + 5 * e) / (a + b + c + d + e));
-        }else{
+        if (a + b + c + d + e > 0) {
+            reviewPage.setStar((float)(1 * a + 2 * b + 3 * c + 4 * d + 5 * e) / (float)(a + b + c + d + e));
+        } else {
             reviewPage.setStar(0);
         }
 
-        Pageable pageable = PageRequest.of(page, show);
+        Pageable pageable;
+        if (sort==1) {
+            pageable = PageRequest.of(page, show, Sort.Direction.DESC, "reviewDate");
+        } else {
+            pageable = PageRequest.of(page, show, Sort.Direction.ASC, "reviewDate");
+        }
         List<Review> reviews;
-        if(star==0){
-            reviews = repo.findByBookId(id, sort, pageable);
-        }else {
-            reviews = repo.findByBookIdAndStar(id, star, sort, pageable);
+        if (star == 0) {
+            reviews = repo.findByBookId(id, pageable);
+        } else {
+            reviews = repo.findByBookIdAndStar(id, star, pageable);
         }
         reviewPage.getReviews().addAll(converter.toDtoList(reviews));
         return reviewPage;

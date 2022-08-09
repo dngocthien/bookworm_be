@@ -19,5 +19,5 @@ public interface BookService {
 
     void saveDiscount(Discount discount);
 
-    BookPage getBookPage(int page, int show, long filter, int type);
+    BookPage getBookPage(int page, int show, long filter, int type, int sort);
 }
