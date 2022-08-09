@@ -119,11 +119,17 @@ public class BookServiceImpl implements BookService {
         List<BookDto> bookDtos;
 
         List<Order> orders = new ArrayList<Order>();
-        if (sort == 0) {
-            Order byOnSale = new Order(Sort.Direction.DESC, "discount.discountPrice");
-            orders.add(byOnSale);
-            Order byPrice = new Order(Sort.Direction.ASC, "bookPrice");
-            orders.add(byPrice);
+        switch (sort){
+            case 2:
+                Order byPopularity = new Order(Sort.Direction.DESC, "popular");
+                orders.add(byPopularity);
+                break;
+            default:
+//                Order byOnSale = new Order(Sort.Direction.DESC, "sale");
+//                orders.add(byOnSale);
+//            Order byPrice = new Order(Sort.Direction.ASC, "bookPrice");
+//            orders.add(byPrice);
+                break;
         }
         Pageable pageable = PageRequest.of(page, show, Sort.by(orders));
         switch (type) {

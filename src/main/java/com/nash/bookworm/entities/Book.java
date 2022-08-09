@@ -3,6 +3,7 @@ package com.nash.bookworm.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -33,4 +34,10 @@ public class Book {
     private Discount discount;
     @OneToMany(fetch = FetchType.EAGER)
     private List<Review> reviews = new ArrayList<>();
+
+//    @Formula("(discount.discount_price)")
+//    private int sale;
+    @Formula("(SELECT COUNT(r.id) FROM book b " +
+            "left join review r on r.book_id = b.id)")
+    private int popular;
 }
