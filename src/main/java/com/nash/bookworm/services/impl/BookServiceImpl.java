@@ -119,16 +119,29 @@ public class BookServiceImpl implements BookService {
         List<BookDto> bookDtos;
 
         List<Order> orders = new ArrayList<Order>();
-        switch (sort){
+        Order byPrice = new Order(Sort.Direction.ASC, "bookPrice");
+        switch (sort) {
+            case 1:
+                Order byRecommended = new Order(Sort.Direction.DESC, "recommended");
+                orders.add(byRecommended);
+                break;
             case 2:
                 Order byPopularity = new Order(Sort.Direction.DESC, "popular");
                 orders.add(byPopularity);
+                orders.add(byPrice);
+                break;
+            case 3:
+                Order byFinalPriceLowest = new Order(Sort.Direction.ASC, "finalPrice");
+                orders.add(byFinalPriceLowest);
+                break;
+            case 4:
+                Order byFinalPriceHighest = new Order(Sort.Direction.DESC, "finalPrice");
+                orders.add(byFinalPriceHighest);
                 break;
             default:
-//                Order byOnSale = new Order(Sort.Direction.DESC, "sale");
-//                orders.add(byOnSale);
-//            Order byPrice = new Order(Sort.Direction.ASC, "bookPrice");
-//            orders.add(byPrice);
+                Order byOnSale = new Order(Sort.Direction.DESC, "sale");
+                orders.add(byOnSale);
+                orders.add(byPrice);
                 break;
         }
         Pageable pageable = PageRequest.of(page, show, Sort.by(orders));
@@ -152,10 +165,4 @@ public class BookServiceImpl implements BookService {
         bookPage.setBooks(bookDtos);
         return bookPage;
     }
-
-//    @Override
-//    public void addDiscountToBook(Long id, Discount discount) {
-////        Discount discount1 = discountRepo.save(discount);
-////        repo.findById(id).ifPresent(book -> book.getDiscounts().add(discount1));
-//    }
 }

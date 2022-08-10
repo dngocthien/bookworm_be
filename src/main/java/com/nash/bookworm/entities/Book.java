@@ -31,13 +31,16 @@ public class Book {
     private String bookCoverPhoto;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "discount_id")
-    private Discount discount;
+    private Discount discount=null;
     @OneToMany(fetch = FetchType.EAGER)
     private List<Review> reviews = new ArrayList<>();
 
-//    @Formula("(discount.discount_price)")
-//    private int sale;
-    @Formula("(SELECT COUNT(r.id) FROM book b " +
-            "left join review r on r.book_id = b.id)")
-    private int popular;
+    @Formula("(SELECT AVG(r.rating_star) from review r where r.book_id = id)")
+    private Float recommended;
+    @Formula("(book_price - (SELECT d.discount_price from discount d where d.book_id = id))")
+    private Integer sale;
+    @Formula("(SELECT COUNT(r.id) FROM review r where r.book_id = id)")
+    private Integer popular;
+    @Formula("(SELECT CASE WHEN discount_id IS NULL THEN book_price ELSE d.discount_price END FROM discount d where d.book_id = id)")
+    private Integer finalPrice;
 }
