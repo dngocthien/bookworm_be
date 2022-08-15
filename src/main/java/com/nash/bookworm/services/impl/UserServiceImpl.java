@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Service
 @Transactional
@@ -39,8 +38,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Userr getUserByEmail(String email) {
-        return userRepo.findByEmail(email);
+    public UserDto getUserByEmail(String email) {
+        return userConverter.toDto(userRepo.findByEmail(email));
     }
 
     @Override

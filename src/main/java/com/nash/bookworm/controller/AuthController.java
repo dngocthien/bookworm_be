@@ -17,4 +17,8 @@ public class AuthController {
     public void saveUser(@RequestBody UserDto userr) {
         userService.saveUser(userr);
     }
+    @GetMapping("/users/email/{email}")
+    public UserDto getUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email);
+    }
 }

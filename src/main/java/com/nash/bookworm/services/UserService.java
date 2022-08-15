@@ -9,5 +9,5 @@ import java.util.List;
 @Service
 public interface UserService {
     Userr saveUser(UserDto userr);
-    Userr getUserByEmail(String email);
+    UserDto getUserByEmail(String email);
 }

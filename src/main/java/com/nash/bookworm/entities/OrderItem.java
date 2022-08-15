@@ -1,12 +1,16 @@
 package com.nash.bookworm.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "order_item")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
