@@ -23,8 +23,6 @@ public class Order {
     private Userr userr;
     private Date orderDate;
     private int orderAmount;
-//    @Fetch(value = FetchMode.SUBSELECT)
-//    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = {CascadeType.ALL})
     private List<OrderItem> orderItems = new ArrayList<>();
 }
