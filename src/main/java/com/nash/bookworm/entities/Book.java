@@ -28,6 +28,7 @@ public class Book {
     @Lob
     private String bookSummary;
     private int bookPrice;
+    @Lob
     private String bookCoverPhoto;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "discount_id")
@@ -37,10 +38,13 @@ public class Book {
 
     @Formula("(SELECT AVG(r.rating_star) from review r where r.book_id = id)")
     private Float recommended;
+
     @Formula("(book_price - (SELECT d.discount_price from discount d where d.book_id = id))")
     private Integer sale;
+
     @Formula("(SELECT COUNT(r.id) FROM review r where r.book_id = id)")
     private Integer popular;
-    @Formula("(SELECT CASE WHEN discount_id IS NULL THEN book_price ELSE d.discount_price END FROM discount d where d.book_id = id)")
+
+    @Formula("(SELECT COALESCE((SELECT d.discount_price from discount d where d.book_id = id), book_price))")
     private Integer finalPrice;
 }

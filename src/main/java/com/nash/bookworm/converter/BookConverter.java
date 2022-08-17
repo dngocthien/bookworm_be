@@ -48,4 +48,13 @@ public class BookConverter {
         book.setBookCoverPhoto(dto.getBookCoverPhoto());
         return book;
     }
+
+    public List<BookDto> toDtoList(List<Book> books){
+        List<BookDto> results = new ArrayList<>();
+        for (Book book : books) {
+            BookDto dto = toDTO(book);
+            results.add(dto);
+        }
+        return results;
+    }
 }

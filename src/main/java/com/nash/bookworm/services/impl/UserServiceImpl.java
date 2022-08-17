@@ -21,7 +21,6 @@ import java.util.Collection;
 
 @Service
 @Transactional
-@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
