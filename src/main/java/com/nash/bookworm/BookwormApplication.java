@@ -7,6 +7,7 @@ import com.nash.bookworm.entities.Author;
 import com.nash.bookworm.entities.Book;
 import com.nash.bookworm.entities.Category;
 import com.nash.bookworm.entities.Discount;
+import com.nash.bookworm.repo.ReviewRepo;
 import com.nash.bookworm.services.*;
 import com.nash.bookworm.services.impl.CategoryServiceImpl;
 import org.springframework.boot.CommandLineRunner;
@@ -26,6 +27,8 @@ public class BookwormApplication {
     @Bean
     CommandLineRunner run(BookService bookService, CategoryService categoryService, AuthorService authorService, ReviewService reviewService, DiscountService discountService) {
         return args -> {
+//            reviewRepo.deleteAll();
+
 //            Category
 //            categoryService.saveCategory(new Category(null, "Mystery", "Mystery novels, also called detective fiction, follow a detective solving a case from start to finish"));
 //            categoryService.saveCategory(new Category(null, "Thriller", "Thriller novels are dark, mysterious, and suspenseful plot-driven stories."));
@@ -87,48 +90,50 @@ public class BookwormApplication {
 //            bookService.saveBook(new BookDto(null, categoryService.getCategoryByName("Fantasy"), authorService.getAuthorByName("Patrick Rothfuss"), "The Winds of Winter", "The Winds of Winter is the planned sixth novel in the epic fantasy series A Song of Ice and Fire by American writer George R. R. Martin. Martin believes the last two volumes of the series will total over 3,000 manuscript pages.", 18, ""));
 //            bookService.saveBook(new BookDto(null, categoryService.getCategoryByName("Fantasy"), authorService.getAuthorByName("Scott Lynch"), "The Lies of Locke Lamora", "The Lies of Locke Lamora is a 2006 fantasy novel by American writer Scott Lynch, the first book of the Gentleman Bastard series. Elite con artists calling themselves the \"Gentleman Bastards\" rob the rich of the city of Camorr, based on late medieval Venice but on an unnamed world.", 17, "https://images-na.ssl-images-amazon.com/images/I/51BNSb3ASOL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg"));
 //            bookService.saveBook(new BookDto(null, categoryService.getCategoryByName("Horror"), authorService.getAuthorByName("Bram Stoker"), "Dracula", "Dracula is a novel by Bram Stoker, published in 1897. As an epistolary novel, the narrative is related through letters, diary entries, and newspaper articles. It has no single protagonist, but opens with solicitor Jonathan Harker taking a business trip to stay at the castle of a Transylvanian noble, Count Dracula.", 22, "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1387151694l/17245.jpg"));
+//            bookService.saveBook(new BookDto(null, categoryService.getCategoryByName("Horror"), authorService.getAuthorByName("Bram Stoker"), "Dracula's Guest", "Dracula's Guest is a short story by Bram Stoker, first published in the short story collection Dracula's Guest and Other Weird Stories. It was written as the first chapter for Stoker's 1897 novel Dracula, but was deleted prior to publication as the original publishers felt it was superfluous to the story.", 23, "https://images-na.ssl-images-amazon.com/images/I/51sfc9l-E1L._SX218_BO1,204,203,200_QL40_FMwebp_.jpg"));
+//            bookService.saveBook(new BookDto(null, categoryService.getCategoryByName("Horror"), authorService.getAuthorByName("Bram Stoker"), "Powers of Darkness", "Powers of Darkness is an incredible literary discovery: In 1900, Icelandic publisher and writer Valdimar Asmundsson set out to translate Bram Stoker’s world-famous 1897 novel Dracula. Called Makt Myrkranna (literally, \"Powers of Darkness\"), this Icelandic edition included an original preface written by Stoker himself. ", 43, "https://m.media-amazon.com/images/I/51lH1HV8RiL.jpg"));
 //            bookService.saveBook(new BookDto(null, categoryService.getCategoryByName("category"), authorService.getAuthorByName("name"), "", "", 3, ""));
 
 //            Review
-//            reviewService.saveReview(new ReviewDto(null, 1L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(2022, 2, 12), 5));
-//            reviewService.saveReview(new ReviewDto(null, 1L, "Awesome Book!", "Never regret buying this book!", new Date(2022, 7, 12), 5));
-//            reviewService.saveReview(new ReviewDto(null, 1L, "Recommend for you!", "You should not miss an awesome book like this", new Date(2022, 4, 12), 5));
-//            reviewService.saveReview(new ReviewDto(null, 1L, "Perfect!", "Best story I have read!", new Date(2022, 5, 12), 4));
-//            reviewService.saveReview(new ReviewDto(null, 1L, "Normal", "Normal", new Date(2022, 4, 12), 3));
-//            reviewService.saveReview(new ReviewDto(null, 1L, "Recommend!", "Not very interesting, but it is ok.", new Date(2022, 6, 12), 4));
-//            reviewService.saveReview(new ReviewDto(null, 2L, "Recommend!", "Not very interesting, but it is ok.", new Date(2022, 6, 12), 4));
-//            reviewService.saveReview(new ReviewDto(null, 3L, "Nice book", "Ok!", new Date(2022, 6, 23), 4));
-//            reviewService.saveReview(new ReviewDto(null, 3L, "Recommend!", "Not very interesting, but it is ok.", new Date(2022, 6, 12), 4));
-//            reviewService.saveReview(new ReviewDto(null, 3L, "Amazing!", "Love this book very much", new Date(2022, 6, 12), 5));
-//            reviewService.saveReview(new ReviewDto(null, 4L, "Amazing!", "Love this book very much", new Date(2022, 6, 12), 5));
-//            reviewService.saveReview(new ReviewDto(null, 4L, "Nice book", "Ok!", new Date(2022, 7, 23), 4));
-//            reviewService.saveReview(new ReviewDto(null, 5L, "Amazing!", "Best book I have read last year.", new Date(2022, 6, 12), 5));
-//            reviewService.saveReview(new ReviewDto(null, 5L, "OK!", "Ok!", new Date(2022, 7, 11), 4));
-//            reviewService.saveReview(new ReviewDto(null, 6L, "Boring", "Very boring, I do not like it", new Date(2022, 6, 12), 2));
-//            reviewService.saveReview(new ReviewDto(null, 7L, "Amazing!", "Best book I have read last year.", new Date(2022, 6, 12), 5));
-//            reviewService.saveReview(new ReviewDto(null, 7L, "Perfect!", "Best story I have read!", new Date(2022, 7, 12), 5));
-//            reviewService.saveReview(new ReviewDto(null, 7L, "Normal", "Not very interesting", new Date(2022, 6, 12), 3));
-//            reviewService.saveReview(new ReviewDto(null, 7L, "Bad story", "I don't like this", new Date(2022, 6, 12), 1));
-//            reviewService.saveReview(new ReviewDto(null, 8L, "Amazing!", "Best book I have read last year.", new Date(2022, 6, 12), 5));
-//            reviewService.saveReview(new ReviewDto(null, 8L, "Awesome Book!", "Best story I have read!", new Date(2022, 8, 12), 5));
-//            reviewService.saveReview(new ReviewDto(null, 8L, "Recommend for you!", "I have never read amazing story like this", new Date(2022, 8, 12), 5));
-//            reviewService.saveReview(new ReviewDto(null, 9L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(2022, 2, 12), 5));
-//            reviewService.saveReview(new ReviewDto(null, 10L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(2022, 2, 12), 4));
-//            reviewService.saveReview(new ReviewDto(null, 11L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(2022, 2, 12), 4));
-//            reviewService.saveReview(new ReviewDto(null, 12L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(2022, 2, 12), 4));
-//            reviewService.saveReview(new ReviewDto(null, 13L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(2022, 2, 12), 4));
-//            reviewService.saveReview(new ReviewDto(null, 14L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(2022, 2, 12), 4));
-//            reviewService.saveReview(new ReviewDto(null, 15L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(2022, 2, 12), 4));
-//            reviewService.saveReview(new ReviewDto(null, 15L, "Awesome Book!", "Best story I have read!", new Date(2022, 8, 12), 5));
-//            reviewService.saveReview(new ReviewDto(null, 16L, "Normal", "Not very interesting", new Date(2022, 6, 12), 3));
-//            reviewService.saveReview(new ReviewDto(null, 17L, "Normal", "Not very interesting", new Date(2022, 6, 12), 4));
-//            reviewService.saveReview(new ReviewDto(null, 18L, "Normal", "Not very interesting", new Date(2022, 6, 12), 4));
+//            reviewService.saveReview(new ReviewDto(null, 1L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(122, 2, 12), 5));
+//            reviewService.saveReview(new ReviewDto(null, 1L, "Awesome Book!", "Never regret buying this book!", new Date(122, 7, 12), 5));
+//            reviewService.saveReview(new ReviewDto(null, 1L, "Recommend for you!", "You should not miss an awesome book like this", new Date(122, 4, 12), 5));
+//            reviewService.saveReview(new ReviewDto(null, 1L, "Perfect!", "Best story I have read!", new Date(122, 5, 12), 4));
+//            reviewService.saveReview(new ReviewDto(null, 1L, "Normal", "Normal", new Date(122, 4, 12), 3));
+//            reviewService.saveReview(new ReviewDto(null, 1L, "Recommend!", "Not very interesting, but it is ok.", new Date(122, 6, 12), 4));
+//            reviewService.saveReview(new ReviewDto(null, 2L, "Recommend!", "Not very interesting, but it is ok.", new Date(122, 6, 12), 4));
+//            reviewService.saveReview(new ReviewDto(null, 3L, "Nice book", "Ok!", new Date(122, 6, 23), 4));
+//            reviewService.saveReview(new ReviewDto(null, 3L, "Recommend!", "Not very interesting, but it is ok.", new Date(122, 6, 12), 4));
+//            reviewService.saveReview(new ReviewDto(null, 3L, "Amazing!", "Love this book very much", new Date(122, 6, 12), 5));
+//            reviewService.saveReview(new ReviewDto(null, 4L, "Amazing!", "Love this book very much", new Date(122, 6, 12), 5));
+//            reviewService.saveReview(new ReviewDto(null, 4L, "Nice book", "Ok!", new Date(122, 7, 23), 4));
+//            reviewService.saveReview(new ReviewDto(null, 5L, "Amazing!", "Best book I have read last year.", new Date(122, 6, 12), 5));
+//            reviewService.saveReview(new ReviewDto(null, 5L, "OK!", "Ok!", new Date(122, 7, 11), 4));
+//            reviewService.saveReview(new ReviewDto(null, 6L, "Boring", "Very boring, I do not like it", new Date(122, 6, 12), 2));
+//            reviewService.saveReview(new ReviewDto(null, 7L, "Amazing!", "Best book I have read last year.", new Date(122, 6, 12), 5));
+//            reviewService.saveReview(new ReviewDto(null, 7L, "Perfect!", "Best story I have read!", new Date(122, 7, 12), 5));
+//            reviewService.saveReview(new ReviewDto(null, 7L, "Normal", "Not very interesting", new Date(122, 6, 12), 3));
+//            reviewService.saveReview(new ReviewDto(null, 7L, "Bad story", "I don't like this", new Date(122, 6, 12), 1));
+//            reviewService.saveReview(new ReviewDto(null, 8L, "Amazing!", "Best book I have read last year.", new Date(122, 6, 12), 5));
+//            reviewService.saveReview(new ReviewDto(null, 8L, "Awesome Book!", "Best story I have read!", new Date(122, 8, 12), 5));
+//            reviewService.saveReview(new ReviewDto(null, 8L, "Recommend for you!", "I have never read amazing story like this", new Date(122, 8, 12), 5));
+//            reviewService.saveReview(new ReviewDto(null, 9L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(122, 2, 12), 5));
+//            reviewService.saveReview(new ReviewDto(null, 10L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(122, 2, 12), 4));
+//            reviewService.saveReview(new ReviewDto(null, 11L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(122, 2, 12), 4));
+//            reviewService.saveReview(new ReviewDto(null, 12L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(122, 2, 12), 4));
+//            reviewService.saveReview(new ReviewDto(null, 13L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(122, 2, 12), 4));
+//            reviewService.saveReview(new ReviewDto(null, 14L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(122, 2, 12), 4));
+//            reviewService.saveReview(new ReviewDto(null, 15L, "Amazing Story! You will love it", "Such an incredible complex story! I have to buy it because there was a waiting list of 30+ at the local library for this book. Thrilled that I made the purchase", new Date(122, 2, 12), 4));
+//            reviewService.saveReview(new ReviewDto(null, 15L, "Awesome Book!", "Best story I have read!", new Date(122, 8, 12), 5));
+//            reviewService.saveReview(new ReviewDto(null, 16L, "Normal", "Not very interesting", new Date(122, 6, 12), 3));
+//            reviewService.saveReview(new ReviewDto(null, 17L, "Normal", "Not very interesting", new Date(122, 6, 12), 4));
+//            reviewService.saveReview(new ReviewDto(null, 18L, "Normal", "Not very interesting", new Date(122, 6, 12), 4));
 //
 //            Discount
-//            discountService.saveDiscount(new DiscountDto(null, 1L, new Date(2022, 4, 12), new Date(2023, 1, 12), 6));
-//            discountService.saveDiscount(new DiscountDto(null, 3L, new Date(2022, 4, 12), new Date(2023, 1, 12), 30));
-//            discountService.saveDiscount(new DiscountDto(null, 8L, new Date(2022, 4, 12), new Date(2023, 1, 12), 10));
-//            discountService.saveDiscount(new DiscountDto(null, 10L, new Date(2022, 4, 13), new Date(2023, 1, 12), 11));
+//            discountService.saveDiscount(new DiscountDto(null, 1L, new Date(122, 4, 12), new Date(125, 1, 12), 6));
+//            discountService.saveDiscount(new DiscountDto(null, 3L, new Date(122, 4, 12), new Date(125, 1, 12), 30));
+//            discountService.saveDiscount(new DiscountDto(null, 8L, new Date(122, 4, 12), new Date(125, 1, 12), 10));
+//            discountService.saveDiscount(new DiscountDto(null, 10L, new Date(122, 4, 13), new Date(125, 1, 12), 11));
         };
     }
 }
